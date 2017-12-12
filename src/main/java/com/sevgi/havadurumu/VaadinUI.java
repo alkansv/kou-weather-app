@@ -3,6 +3,7 @@ package com.sevgi.havadurumu;
 import com.sevgi.havadurumu.model.Weather;
 import com.sevgi.havadurumu.service.WeatherService;
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.Position;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringUI
 @Theme("valo")
+@Title("Koü Hava Durumu")
 public class VaadinUI extends UI
 {
     @Autowired
