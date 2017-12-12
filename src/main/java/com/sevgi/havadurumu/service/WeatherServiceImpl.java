@@ -15,8 +15,9 @@ import java.util.ArrayList;
 @Component
 public class WeatherServiceImpl implements WeatherService
 {
-    private String APP_ID = "a6918126ee3100d811569210895f13d0";
+    private String APP_ID = "3e496382c36335d91070bd17c7be261d";
 
+    @Override
     public ArrayList<String> getWeatherDescription(String cityName) throws Exception
     {
         String url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&APPID=" + APP_ID + "&units=metric&format=json";
@@ -39,13 +40,10 @@ public class WeatherServiceImpl implements WeatherService
 
         in.close();
 
-//        System.out.println(response.toString());
-
         Logger.getLogger("Json String :  " + response.toString());
 
         JSONObject myResponse = new JSONObject(response.toString());
 
-        //Json formala havanın durumu çekiliyor
         JSONArray lineItems = myResponse.getJSONArray("weather");
 
         ArrayList<String> results = new ArrayList<>();
@@ -75,5 +73,4 @@ public class WeatherServiceImpl implements WeatherService
 
         return results;
     }
-
 }

@@ -23,7 +23,7 @@ public class VaadinUI extends UI
     @Autowired
     WeatherService weatherService;
 
-    private Label info, cityWeatherMain, cityWeatherDescription, cordinats, temprature, tempratureMin, tempratureMax, pressure, humidity, windSpeed;
+    private Label myInfo, info, cityWeatherMain, cityWeatherDescription, cordinats, temprature, tempratureMin, tempratureMax, pressure, humidity, windSpeed;
 
     @Override
     protected void init(VaadinRequest vaadinRequest)
@@ -32,6 +32,7 @@ public class VaadinUI extends UI
         Button button = new Button("Bilgileri Getir");
 
         info = new Label("Girilen Şehre Ait Bilgiler Aşağıda Listenelenecektir..");
+        myInfo = new Label("Sevgi Alkan 140202014");
         cityWeatherMain = new Label("");
         cityWeatherDescription = new Label("");
         cordinats = new Label("");
@@ -43,14 +44,10 @@ public class VaadinUI extends UI
         windSpeed = new Label("");
 
 
-        VerticalLayout layout = new VerticalLayout(cityName, button, info, cityWeatherMain, cityWeatherDescription, cordinats, temprature, pressure, tempratureMin, tempratureMax, windSpeed, humidity);
+        VerticalLayout layout = new VerticalLayout(myInfo, cityName, button, info, cityWeatherMain, cityWeatherDescription, cordinats, temprature, pressure, tempratureMin, tempratureMax, windSpeed, humidity);
         layout.setMargin(true);
         layout.setSpacing(true);
         setContent(layout);
-
-//        button.addClickListener(
-//                e -> Notification.show(service.sayHello(cityName.getValue()
-//                )));
 
         button.addClickListener((Button.ClickListener) clickEvent -> {
 
