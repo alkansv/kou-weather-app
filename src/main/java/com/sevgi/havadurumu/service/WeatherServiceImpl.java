@@ -51,8 +51,6 @@ public class WeatherServiceImpl implements WeatherService
 
         JSONArray lineItems = myResponse.getJSONArray("weather");
 
-        ArrayList<String> results = new ArrayList<>();
-
         for (Object o : lineItems)
         {
             JSONObject jsonLineItem = (JSONObject) o;
