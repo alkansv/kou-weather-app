@@ -1,8 +1,8 @@
 package com.sevgi.havadurumu.service;
 
-import java.util.ArrayList;
+import com.sevgi.havadurumu.model.Weather;
 
 public interface WeatherService
 {
-    ArrayList<String> getWeatherDescription(String cityName) throws Exception;
+    Weather getWeatherDescription(String cityName) throws Exception;
 }

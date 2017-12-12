@@ -1,5 +1,6 @@
 package com.sevgi.havadurumu;
 
+import com.sevgi.havadurumu.model.Weather;
 import com.sevgi.havadurumu.service.WeatherService;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.Page;
@@ -14,7 +15,6 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 
 @SpringUI
 @Theme("valo")
@@ -22,6 +22,9 @@ public class VaadinUI extends UI
 {
     @Autowired
     WeatherService weatherService;
+
+    @Autowired
+    Weather weather;
 
     private Label myInfo, info, cityWeatherMain, cityWeatherDescription, cordinats, temprature, tempratureMin, tempratureMax, pressure, humidity, windSpeed;
 
@@ -54,18 +57,18 @@ public class VaadinUI extends UI
 
             try
             {
-                ArrayList<String> getData = weatherService.getWeatherDescription(cityName.getValue());
+                weather = weatherService.getWeatherDescription(cityName.getValue());
 
                 info.setValue(cityName.getValue() + " Şehrine Ait Bilgiler..");
-                cityWeatherMain.setValue("Girilen şehrin hava durumu : " + getData.get(0));
-                cityWeatherDescription.setValue("Açıklama : " + getData.get(1));
-                cordinats.setValue("Kordinatlar : " + getData.get(2));
-                temprature.setValue("Sıcaklık : " + getData.get(3) + " °C");
-                pressure.setValue("Basınç : " + getData.get(4));
-                tempratureMin.setValue("En düşük sıcaklık : " + getData.get(5) + " °C");
-                tempratureMax.setValue("En yüksek sıcalık : " + getData.get(6) + " °C");
-                windSpeed.setValue("Rüzgar hızı: " + getData.get(7));
-                humidity.setValue("Nem: %" + getData.get(8));
+                cityWeatherMain.setValue("Girilen şehrin hava durumu : " + weather.getCityWeatherMain());
+                cityWeatherDescription.setValue("Açıklama : " + weather.getCityWeatherDescription());
+                cordinats.setValue("Kordinatlar : " + weather.getCordinats());
+                temprature.setValue("Sıcaklık : " + weather.getTemprature() + " °C");
+                pressure.setValue("Basınç : " + weather.getPressure());
+                tempratureMin.setValue("En düşük sıcaklık : " + weather.getTempratureMin() + " °C");
+                tempratureMax.setValue("En yüksek sıcalık : " + weather.getTempratureMax() + " °C");
+                windSpeed.setValue("Rüzgar hızı: " + weather.getWindSpeed());
+                humidity.setValue("Nem: %" + weather.getHumidity());
 
                 Notification bildirim = new Notification(cityName.getValue() + " Şehrine ait bilgiler getirildi..", Notification.TYPE_WARNING_MESSAGE);
 

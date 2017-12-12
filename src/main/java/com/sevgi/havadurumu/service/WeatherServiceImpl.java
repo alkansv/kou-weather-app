@@ -1,9 +1,11 @@
 package com.sevgi.havadurumu.service;
 
 
+import com.sevgi.havadurumu.model.Weather;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -17,8 +19,11 @@ public class WeatherServiceImpl implements WeatherService
 {
     private String APP_ID = "3e496382c36335d91070bd17c7be261d";
 
+    @Autowired
+    Weather weather;
+
     @Override
-    public ArrayList<String> getWeatherDescription(String cityName) throws Exception
+    public Weather getWeatherDescription(String cityName) throws Exception
     {
         String url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&APPID=" + APP_ID + "&units=metric&format=json";
 
@@ -51,26 +56,26 @@ public class WeatherServiceImpl implements WeatherService
         for (Object o : lineItems)
         {
             JSONObject jsonLineItem = (JSONObject) o;
-            results.add(jsonLineItem.getString("main"));
-            results.add(jsonLineItem.getString("description"));
+            weather.setCityWeatherMain(jsonLineItem.getString("main"));
+            weather.setCityWeatherDescription(jsonLineItem.getString("description"));
         }
 
         JSONObject objects = myResponse.getJSONObject("coord");
 
-        results.add(String.valueOf(objects.getDouble("lon") + " , " + objects.getDouble("lat")));
+        weather.setCordinats(String.valueOf(objects.getDouble("lon") + " , " + objects.getDouble("lat")));
 
         objects = myResponse.getJSONObject("main");
 
-        results.add(String.valueOf(objects.getDouble("temp")));
-        results.add(String.valueOf(objects.getDouble("pressure")));
-        results.add(String.valueOf(objects.getDouble("temp_min")));
-        results.add(String.valueOf(objects.getDouble("temp_max")));
-        results.add(String.valueOf(objects.getDouble("humidity")));
+        weather.setTemprature(String.valueOf(objects.getDouble("temp")));
+        weather.setPressure(String.valueOf(objects.getDouble("pressure")));
+        weather.setTempratureMin(String.valueOf(objects.getDouble("temp_min")));
+        weather.setTempratureMax(String.valueOf(objects.getDouble("temp_max")));
+        weather.setHumidity(String.valueOf(objects.getDouble("humidity")));
 
         objects = myResponse.getJSONObject("wind");
 
-        results.add(String.valueOf(objects.getDouble("speed")));
+        weather.setWindSpeed(String.valueOf(objects.getDouble("speed")));
 
-        return results;
+        return weather;
     }
 }
